@@ -1,45 +1,65 @@
 import 'package:flutter/foundation.dart';
-
-enum Complexity {
-  Simple,
-  Challenging,
-  Hard,
-}
-
-enum Affordability {
-  Affordable,
-  Pricey,
-  Luxurious,
-}
+import '../fetcher/apiFetcher.dart';
+import 'dart:developer';
 
 class Meal {
-  final String id;
-  final List<String> categories;
-  final String title;
-  final String imageUrl;
-  final List<String> ingredients;
-  final List<String> steps;
-  final int duration;
-  final Complexity complexity;
-  final Affordability affordability;
-  final bool isGlutenFree;
-  final bool isLactoseFree;
-  final bool isVegan;
-  final bool isVegetarian;
+  String label;
+  String image;
+  String source;
+  List<String> ingredientLines;
+  List<String> healthLabels;
+  double calories;
+  String url;
 
-  const Meal({
-    @required this.id,
-    @required this.categories,
-    @required this.title,
-    @required this.imageUrl,
-    @required this.ingredients,
-    @required this.steps,
-    @required this.duration,
-    @required this.complexity,
-    @required this.affordability,
-    @required this.isGlutenFree,
-    @required this.isLactoseFree,
-    @required this.isVegan,
-    @required this.isVegetarian,
+  Meal({
+    this.label,
+    this.source,
+    this.image,
+    this.healthLabels,
+    this.ingredientLines,
+    this.calories,
+    this.url,
   });
+
+  Meal.fromJson(Map<String, dynamic> json) {
+    try {
+      json = json['recipe'];
+      label = json['label'];
+      source = json['source'];
+      image = json['image'];
+      healthLabels = new List<String>.from(json['healthLabels']);
+      ingredientLines = new List<String>.from(json['ingredientLines']);
+      calories = json['calories'];
+      url = json['url'];
+    } catch (e) {}
+  }
+}
+
+class MyState extends ChangeNotifier {
+  List<Meal> _list = [];
+  List<Meal> get list => _list;
+
+  void searchMeals() async {
+    var list = await Fetcher.searchRecipe(query, cusineType, filter);
+    _list = list;
+    notifyListeners();
+  }
+
+  MyState() {
+    searchMeals();
+  }
+
+  String _filter = 'vegetarian';
+  String get filter => _filter;
+
+  String _query = '';
+  String get query => _query;
+
+  String _cuisineType = 'Asian';
+  String get cusineType => _cuisineType;
+
+  void updateFilter(String newValue) {
+    _filter = newValue;
+    notifyListeners();
+  }
 }

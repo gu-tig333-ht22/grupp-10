@@ -37,11 +37,12 @@ class MealDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mealId = ModalRoute.of(context).settings.arguments as String;
-    final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
+    final mealLabel = ModalRoute.of(context).settings.arguments as String;
+    final selectedMeal = null;
+    // DUMMY_MEALS.firstWhere((meal) => meal.label == mealLabel);
     return Scaffold(
       appBar: AppBar(
-        title: Text('${selectedMeal.title}'),
+        title: Text('${selectedMeal.label}'),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -50,7 +51,7 @@ class MealDetailScreen extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.network(
-                selectedMeal.imageUrl,
+                selectedMeal.image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -79,24 +80,24 @@ class MealDetailScreen extends StatelessWidget {
                         child: Text('# ${(index + 1)}'),
                       ),
                       title: Text(
-                        selectedMeal.steps[index],
+                        selectedMeal.ingredientLines[index],
                       ),
                     ),
                     Divider()
                   ],
                 ),
-                itemCount: selectedMeal.steps.length,
+                itemCount: selectedMeal.ingredientLines.length,
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          isFavorite(mealId) ? Icons.star : Icons.star_border,
-        ),
-        onPressed: () => toggleFavorite(mealId),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(
+      //     isFavorite(mealId) ? Icons.star : Icons.star_border,
+      //   ),
+      //   onPressed: () => toggleFavorite(mealId),
+      // ),
     );
   }
 }

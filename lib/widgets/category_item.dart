@@ -9,8 +9,8 @@ class CategoryItem extends StatelessWidget {
 
   CategoryItem(this.id, this.title, this.color);
 
-  void selectCategory(BuildContext ctx) {
-    Navigator.of(ctx).pushNamed(
+  Future<void> selectCategory(BuildContext ctx) async {
+    await Navigator.of(ctx).pushNamed(
       CategoryMealsScreen.routeName,
       arguments: {
         'id': id,
@@ -22,7 +22,7 @@ class CategoryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => selectCategory(context),
+      onTap: () async => selectCategory(context),
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(

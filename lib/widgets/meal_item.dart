@@ -2,22 +2,39 @@ import 'package:flutter/material.dart';
 
 import '../screens/meal_detail_screen.dart';
 import '../models/meal.dart';
+import 'package:provider/provider.dart';
 
 class MealItem extends StatelessWidget {
-  final String label;
-  final String image;
+  String label;
+  String image;
+  String source;
+  String uri;
+  List<String> ingredientLines;
 
-  MealItem({
-    @required this.label,
-    @required this.image,
-  });
+  MealItem(
+      {this.label, this.image, this.source, this.uri, this.ingredientLines});
 
-  void selectMeal(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(
-      MealDetailScreen.routeName,
-      arguments: label,
-    )
+  MealItem.fromJson(Map<String, dynamic> json) {
+    try {
+      json = json['recipe'];
+      label = json['label'];
+      source = json['source'];
+      uri = json['uri'];
+      image = json['image'];
+      // healthLabels = new List<String>.from(json['healthLabels']);
+      ingredientLines = new List<String>.from(json['ingredientLines']);
+      // calories = json['calories'];
+    } catch (e) {
+      //do nothing
+    }
+  }
+
+  void selectMeal(BuildContext ctx, uri) async {
+    var state = await Provider.of<MyState>(ctx, listen: false);
+    await state.setSelectedRecipe(uri);
+
+    await Navigator.of(ctx)
+        .pushNamed(MealDetailScreen.routeName)
         .then((result) {
       if (result != null) {
         // removeItem(result);
@@ -28,7 +45,7 @@ class MealItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => selectMeal(context),
+      onTap: () => selectMeal(context, uri),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import '../screens/category_meals_screen.dart';
+import 'package:provider/provider.dart';
+import '../models/meal.dart';
 
 class CategoryItem extends StatelessWidget {
   final String id;
@@ -10,12 +11,11 @@ class CategoryItem extends StatelessWidget {
   CategoryItem(this.id, this.title, this.color);
 
   Future<void> selectCategory(BuildContext ctx) async {
+    var state = await Provider.of<MyState>(ctx, listen: false);
+    await state.updateCuisineType(title);
+
     await Navigator.of(ctx).pushNamed(
       CategoryMealsScreen.routeName,
-      arguments: {
-        'id': id,
-        'title': title,
-      },
     );
   }
 

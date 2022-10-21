@@ -34,8 +34,6 @@ class _MyAppState extends State<MyApp> {
 
   List<Meal> _favoriteMeals = [];
 
-  List<Meal> list;
-
   // void _toggleFavorite(String mealId) {
   //   final existingIndex =
   //       _favoriteMeals.indexWhere((meal) => meal.id == mealId);
@@ -83,8 +81,11 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (ctx) => TabsScreen(_favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) => Consumer<MyState>(
-            builder: (ctx, state, child) => CategoryMealsScreen(state.list)),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(null, null),
+            builder: (ctx, state, child) => CategoryMealsScreen(
+                state.list, state.filter, state.cuisineType)),
+        MealDetailScreen.routeName: (ctx) => Consumer<MyState>(
+            builder: (ctx, state, child) =>
+                MealDetailScreen(state.selectedRecipe)),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, null),
       },
       onGenerateRoute: (settings) {

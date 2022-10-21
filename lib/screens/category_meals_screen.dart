@@ -6,18 +6,21 @@ import 'package:provider/provider.dart';
 class CategoryMealsScreen extends StatelessWidget {
   static const routeName = '/category-meals';
   final List<Meal> list;
-  CategoryMealsScreen(this.list);
+  final String cuisineType;
+  final List<String> filter;
+  CategoryMealsScreen(this.list, this.filter, this.cuisineType);
 
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: Text(cuisineType),
       ),
       body: ListView.builder(
         itemBuilder: (ctx, index) {
           return MealItem(
             label: list[index].label,
             image: list[index].image,
+            uri: list[index].uri,
             // calories: displayedMeals[index].calories,
             // affordability: displayedMeals[index].affordability,
             // complexity: displayedMeals[index].complexity,

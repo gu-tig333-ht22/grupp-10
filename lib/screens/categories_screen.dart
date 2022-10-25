@@ -14,57 +14,67 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   static List<Category> DUMMY_CATEGORIES = [
     Category(
-      id: 'c1',
-      title: 'Italian',
-      color: Colors.purple,
-    ),
+        id: 'c1',
+        title: 'Italian',
+        color: Colors.purple,
+        image:
+            'https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Flag_of_Italy.svg/255px-Flag_of_Italy.svg.png'),
     Category(
-      id: 'c2',
-      title: 'Quick & Easy',
-      color: Colors.red,
-    ),
+        id: 'c2',
+        title: 'French',
+        color: Colors.red,
+        image:
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Flag_of_France.png/1024px-Flag_of_France.png'),
     Category(
-      id: 'c3',
-      title: 'Hamburgers',
-      color: Colors.orange,
-    ),
+        id: 'c3',
+        title: 'Asian',
+        color: Colors.orange,
+        image:
+            'https://fvmstatic.s3.amazonaws.com/maps/m/WRLD-AS-02-4001.png'),
     Category(
-      id: 'c4',
-      title: 'German',
-      color: Colors.amber,
-    ),
+        id: 'c4',
+        title: 'Indian',
+        color: Colors.amber,
+        image:
+            'https://cdn.britannica.com/97/1597-004-05816F4E/Flag-India.jpg'),
     Category(
-      id: 'c5',
-      title: 'Light & Lovely',
-      color: Colors.blue,
-    ),
+        id: 'c5',
+        title: 'Japanese',
+        color: Colors.blue,
+        image:
+            'https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Flag_of_Japan.svg/1200px-Flag_of_Japan.svg.png'),
     Category(
-      id: 'c6',
-      title: 'Exotic',
-      color: Colors.green,
-    ),
+        id: 'c6',
+        title: 'Greek',
+        color: Colors.green,
+        image:
+            'https://cdn.britannica.com/49/1049-004-AE4BAD3E/Flag-Greece.jpg'),
     Category(
-      id: 'c7',
-      title: 'Breakfast',
-      color: Colors.lightBlue,
-    ),
+        id: 'c7',
+        title: 'Mexican',
+        color: Colors.lightBlue,
+        image:
+            'https://cdn.britannica.com/73/2573-004-29818847/Flag-Mexico.jpg'),
     Category(
-      id: 'c8',
-      title: 'Asian',
-      color: Colors.lightGreen,
-    ),
+        id: 'c8',
+        title: 'Nordic',
+        color: Colors.lightGreen,
+        image:
+            'https://scandification.com/wp-content/uploads/2021/06/What-Is-The-Nordic-Cross-1-scaled.jpg'),
     Category(
-      id: 'c9',
-      title: 'French',
-      color: Colors.pink,
-    ),
+        id: 'c9',
+        title: 'Caribbean',
+        color: Colors.pink,
+        image:
+            'https://thumbs.dreamstime.com/b/caribbean-flags-d-map-embedded-national-blue-political-globe-illustration-130262859.jpg'),
     Category(
-      id: 'c10',
-      title: 'Summer',
-      color: Colors.teal,
-    ),
+        id: 'c10',
+        title: 'World',
+        color: Colors.teal,
+        image:
+            'https://cdn3.vectorstock.com/i/1000x1000/16/62/earth-vector-35341662.jpg'),
   ];
-
+/*
   void updateList(String value) {
     setState(() {
       display_list = DUMMY_CATEGORIES
@@ -86,7 +96,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         });
     });
   }
-  /*
+  */
   void updateList(String value) {
     setState(() {
       display_list = DUMMY_CATEGORIES
@@ -98,7 +108,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
           .toList();
     });
   }
-  */
+
 
   List<Category> display_list =
       List.from(_CategoriesScreenState.DUMMY_CATEGORIES);
@@ -118,7 +128,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   filled: true,
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  hintText: 'sök ...',
+                  hintText: 'search ...',
                   hintStyle: TextStyle(fontSize: 22),
                   prefixIcon: Icon(Icons.search, size: 28),
                 ),
@@ -130,7 +140,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                   child: display_list.length == 0
                       ? Center(
                           child: Text(
-                            'Inga resultat funna ..',
+                            'No Results Found ..',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 20,
@@ -142,10 +152,10 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           children: display_list
                               .map(
                                 (catData) => CategoryItem(
-                                  catData.id,
-                                  catData.title,
-                                  catData.color,
-                                ),
+                                    catData.id,
+                                    catData.title,
+                                    catData.color,
+                                    catData.image),
                               )
                               .toList(),
                           gridDelegate:

@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
+import '../widgets/meal_item.dart';
 import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
 
-  final Function toggleFavorite;
-  final Function isFavorite;
+  final MealItem selectedRecipe;
 
-  MealDetailScreen(this.toggleFavorite, this.isFavorite);
+  MealDetailScreen(this.selectedRecipe);
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -37,11 +36,10 @@ class MealDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final mealId = ModalRoute.of(context).settings.arguments as String;
-    final selectedMeal = DUMMY_MEALS.firstWhere((meal) => meal.id == mealId);
+    // DUMMY_MEALS.firstWhere((meal) => meal.label == mealLabel);
     return Scaffold(
       appBar: AppBar(
-        title: Text('${selectedMeal.title}'),
+        title: Text(selectedRecipe.label),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -50,7 +48,7 @@ class MealDetailScreen extends StatelessWidget {
               height: 300,
               width: double.infinity,
               child: Image.network(
-                selectedMeal.imageUrl,
+                selectedRecipe.image,
                 fit: BoxFit.cover,
               ),
             ),
@@ -64,39 +62,20 @@ class MealDetailScreen extends StatelessWidget {
                         vertical: 5,
                         horizontal: 10,
                       ),
-                      child: Text(selectedMeal.ingredients[index])),
+                      child: Text(selectedRecipe.ingredientLines[index])),
                 ),
-                itemCount: selectedMeal.ingredients.length,
-              ),
-            ),
-            buildSectionTitle(context, 'Steps'),
-            buildContainer(
-              ListView.builder(
-                itemBuilder: (ctx, index) => Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        child: Text('# ${(index + 1)}'),
-                      ),
-                      title: Text(
-                        selectedMeal.steps[index],
-                      ),
-                    ),
-                    Divider()
-                  ],
-                ),
-                itemCount: selectedMeal.steps.length,
+                itemCount: selectedRecipe.ingredientLines.length,
               ),
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          isFavorite(mealId) ? Icons.star : Icons.star_border,
-        ),
-        onPressed: () => toggleFavorite(mealId),
-      ),
+      // floatingActionButton: FloatingActionButton(
+      //   child: Icon(
+      //     isFavorite(mealId) ? Icons.star : Icons.star_border,
+      //   ),
+      //   onPressed: () => toggleFavorite(mealId),
+      // ),
     );
   }
 }

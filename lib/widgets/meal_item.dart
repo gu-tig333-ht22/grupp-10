@@ -2,61 +2,39 @@ import 'package:flutter/material.dart';
 
 import '../screens/meal_detail_screen.dart';
 import '../models/meal.dart';
+import 'package:provider/provider.dart';
 
 class MealItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
-  final int duration;
-  final Complexity complexity;
-  final Affordability affordability;
+  String label;
+  String image;
+  String source;
+  String uri;
+  List<String> ingredientLines;
 
   MealItem(
-      {@required this.id,
-      @required this.title,
-      @required this.imageUrl,
-      @required this.affordability,
-      @required this.complexity,
-      @required this.duration,});
+      {this.label, this.image, this.source, this.uri, this.ingredientLines});
 
-  String get complexityText {
-    switch (complexity) {
-      case Complexity.Simple:
-        return 'Simple';
-        break;
-      case Complexity.Challenging:
-        return 'Challenging';
-        break;
-      case Complexity.Hard:
-        return 'Hard';
-        break;
-      default:
-        return 'Unknown';
+  MealItem.fromJson(Map<String, dynamic> json) {
+    try {
+      json = json['recipe'];
+      label = json['label'];
+      source = json['source'];
+      uri = json['uri'];
+      image = json['image'];
+      // healthLabels = new List<String>.from(json['healthLabels']);
+      ingredientLines = new List<String>.from(json['ingredientLines']);
+      // calories = json['calories'];
+    } catch (e) {
+      //do nothing
     }
   }
 
-  String get affordabilityText {
-    switch (affordability) {
-      case Affordability.Affordable:
-        return 'Affordable';
-        break;
-      case Affordability.Pricey:
-        return 'Pricey';
-        break;
-      case Affordability.Luxurious:
-        return 'Expensive';
-        break;
-      default:
-        return 'Unknown';
-    }
-  }
+  void selectMeal(BuildContext ctx, uri) async {
+    var state = await Provider.of<MyState>(ctx, listen: false);
+    await state.setSelectedRecipe(uri);
 
-  void selectMeal(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(
-      MealDetailScreen.routeName,
-      arguments: id,
-    )
+    await Navigator.of(ctx)
+        .pushNamed(MealDetailScreen.routeName)
         .then((result) {
       if (result != null) {
         // removeItem(result);
@@ -67,7 +45,7 @@ class MealItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => selectMeal(context),
+      onTap: () => selectMeal(context, uri),
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
@@ -84,7 +62,7 @@ class MealItem extends StatelessWidget {
                     topRight: Radius.circular(15),
                   ),
                   child: Image.network(
-                    imageUrl,
+                    image,
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -101,7 +79,7 @@ class MealItem extends StatelessWidget {
                       horizontal: 20,
                     ),
                     child: Text(
-                      title,
+                      label,
                       style: TextStyle(
                         fontSize: 26,
                         color: Colors.white,
@@ -126,7 +104,7 @@ class MealItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text('$duration min'),
+                      Text("empty text"),
                     ],
                   ),
                   Row(
@@ -137,7 +115,7 @@ class MealItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(complexityText),
+                      Text("test"),
                     ],
                   ),
                   Row(
@@ -148,7 +126,7 @@ class MealItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(affordabilityText),
+                      Text("test"),
                     ],
                   ),
                 ],

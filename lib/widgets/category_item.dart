@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_complete_guide/dummy_data.dart';
+import '../models/category.dart';
 import '../screens/category_meals_screen.dart';
 import 'package:provider/provider.dart';
 import '../models/meal.dart';
@@ -7,8 +9,9 @@ class CategoryItem extends StatelessWidget {
   final String id;
   final String title;
   final Color color;
+  final String image;
 
-  CategoryItem(this.id, this.title, this.color);
+  CategoryItem(this.id, this.title, this.color, this.image);
 
   Future<void> selectCategory(BuildContext ctx) async {
     var state = await Provider.of<MyState>(ctx, listen: false);
@@ -26,20 +29,17 @@ class CategoryItem extends StatelessWidget {
       splashColor: Theme.of(context).primaryColor,
       borderRadius: BorderRadius.circular(15),
       child: Container(
-        padding: const EdgeInsets.all(15),
-        child: Text(
-          title,
-          style: Theme.of(context).textTheme.headline6,
+        padding: const EdgeInsets.only(top: 80),
+        child: GridTileBar(
+          title: Center(
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
         ),
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              color.withOpacity(0.7),
-              color,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          image: DecorationImage(fit: BoxFit.cover, image: NetworkImage(image)),
           borderRadius: BorderRadius.circular(15),
         ),
       ),

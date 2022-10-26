@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../fetcher/apiFetcher.dart';
+import '../fetcher.dart';
 import 'dart:developer';
 import '../widgets/meal_item.dart';
 

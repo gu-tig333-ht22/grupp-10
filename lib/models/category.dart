@@ -10,6 +10,6 @@ class Category {
     @required this.id,
     @required this.title,
     this.color = Colors.orange,
-    this.image = null,
+    this.image,
   });
 }

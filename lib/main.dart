@@ -34,34 +34,14 @@ class _MyAppState extends State<MyApp> {
 
   List<Meal> _favoriteMeals = [];
 
-  // void _toggleFavorite(String mealId) {
-  //   final existingIndex =
-  //       _favoriteMeals.indexWhere((meal) => meal.id == mealId);
-  //   if (existingIndex >= 0) {
-  //     setState(() {
-  //       _favoriteMeals.removeAt(existingIndex);
-  //     });
-  //   } else {
-  //     setState(() {
-  //       _favoriteMeals.add(
-  //         DUMMY_MEALS.firstWhere((meal) => meal.id == mealId),
-  //       );
-  //     });
-  //   }
-  // }
-
-  // bool _isMealFavorite(String id) {
-  //   return _favoriteMeals.any((meal) => meal.id == id);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'DeliMeals',
       theme: ThemeData(
-        primarySwatch: Colors.pink,
+        primarySwatch: Colors.blueGrey,
         accentColor: Colors.amber,
-        canvasColor: Color.fromRGBO(255, 254, 229, 1),
+        canvasColor: Colors.teal.shade50,
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
             bodyText1: TextStyle(
@@ -88,15 +68,10 @@ class _MyAppState extends State<MyApp> {
                 MealDetailScreen(state.selectedRecipe)),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, null),
       },
+      /*
       onGenerateRoute: (settings) {
         print(settings.arguments);
-        // if (settings.name == '/meal-detail') {
-        //   return ...;
-        // } else if (settings.name == '/something-else') {
-        //   return ...;
-        // }
-        // return MaterialPageRoute(builder: (ctx) => CategoriesScreen(),);
-      },
+            },*/
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
           builder: (ctx) => CategoriesScreen(),

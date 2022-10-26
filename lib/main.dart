@@ -32,8 +32,6 @@ class _MyAppState extends State<MyApp> {
     'vegetarian': false,
   };
 
-  List<Meal> _favoriteMeals = [];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -56,22 +54,17 @@ class _MyAppState extends State<MyApp> {
               fontWeight: FontWeight.bold,
             )),
       ),
-      // home: CategoriesScreen(),
-      initialRoute: '/', // default is '/'
+      initialRoute: '/',
       routes: {
-        '/': (ctx) => TabsScreen(_favoriteMeals),
+        '/': (ctx) => TabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => Consumer<MyState>(
             builder: (ctx, state, child) => CategoryMealsScreen(
                 state.list, state.filter, state.cuisineType)),
         MealDetailScreen.routeName: (ctx) => Consumer<MyState>(
             builder: (ctx, state, child) =>
-                MealDetailScreen(state.selectedRecipe)),
+                MealDetailScreen(state.selectedRecipe, state.favourites)),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, null),
       },
-      /*
-      onGenerateRoute: (settings) {
-        print(settings.arguments);
-            },*/
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
           builder: (ctx) => CategoriesScreen(),

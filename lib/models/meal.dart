@@ -84,7 +84,17 @@ class MyState extends ChangeNotifier {
     notifyListeners();
   }
 
-  // void updateFilter(String newValue) {
-  //   notifyListeners();
-  // }
+  List<MealItem> _favourites = [];
+  List<MealItem> get favourites => _favourites;
+  void addFavourite(recipe) async {
+    _favourites.insert(0, recipe);
+    debugPrint(_favourites.toString());
+    notifyListeners();
+  }
+
+  void removeFavourite(recipe) async {
+    _favourites.removeWhere((item) => item == recipe);
+    debugPrint(_favourites.toString());
+    notifyListeners();
+  }
 }

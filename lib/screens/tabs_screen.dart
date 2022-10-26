@@ -4,12 +4,9 @@ import '../widgets/main_drawer.dart';
 import './favorites_screen.dart';
 import './categories_screen.dart';
 import '../models/meal.dart';
+import 'package:provider/provider.dart';
 
 class TabsScreen extends StatefulWidget {
-  final List<Meal> favoriteMeals;
-
-  TabsScreen(this.favoriteMeals);
-
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
@@ -26,8 +23,9 @@ class _TabsScreenState extends State<TabsScreen> {
         'title': 'Categories',
       },
       {
-        'page': FavoritesScreen(widget.favoriteMeals),
-        'title': 'Your Favorite',
+        'page': FavoritesScreen(
+            Provider.of<MyState>(context, listen: false).favourites),
+        'title': 'Your Favourites',
       },
     ];
     super.initState();

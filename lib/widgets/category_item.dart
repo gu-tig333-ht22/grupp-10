@@ -34,7 +34,18 @@ class CategoryItem extends StatelessWidget {
           title: Center(
             child: Text(
               title,
-              style: Theme.of(context).textTheme.headline6,
+              style: TextStyle(
+                  color: Color.fromARGB(255, 0, 0, 0),
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(1.0, 1.0), //position of shadow
+                      blurRadius: 1.0, //blur intensity of shadow
+                      color: Colors.grey
+                          .withOpacity(0.3), //color of shadow with opacity
+                    ),
+                  ]),
             ),
           ),
         ),

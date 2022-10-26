@@ -9,10 +9,18 @@ class MealItem extends StatelessWidget {
   String image;
   String source;
   String uri;
+  double calories;
+  double totalTime;
   List<String> ingredientLines;
 
   MealItem(
-      {this.label, this.image, this.source, this.uri, this.ingredientLines});
+      {this.label,
+      this.image,
+      this.source,
+      this.uri,
+      this.calories,
+      this.ingredientLines,
+      this.totalTime});
 
   MealItem.fromJson(Map<String, dynamic> json) {
     try {
@@ -23,7 +31,8 @@ class MealItem extends StatelessWidget {
       image = json['image'];
       // healthLabels = new List<String>.from(json['healthLabels']);
       ingredientLines = new List<String>.from(json['ingredientLines']);
-      // calories = json['calories'];
+      calories = json['calories'];
+      totalTime = json['totalTime'];
     } catch (e) {
       //do nothing
     }
@@ -99,34 +108,43 @@ class MealItem extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Icon(
-                        Icons.schedule,
+                        Icons.addchart,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      Text("empty text"),
+                      Text(
+                          calories != null
+                              ? calories.toStringAsFixed(0) + ' cal'
+                              : 'Unknown',
+                          style: TextStyle(fontSize: 12)),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Icon(
-                        Icons.work,
+                        Icons.cabin,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      Text("test"),
+                      Text(source != null ? source : 'Unknown',
+                          style: TextStyle(fontSize: 12)),
                     ],
                   ),
                   Row(
                     children: <Widget>[
                       Icon(
-                        Icons.attach_money,
+                        Icons.more_time,
                       ),
                       SizedBox(
                         width: 6,
                       ),
-                      Text("test"),
+                      Text(
+                          totalTime != null && totalTime != 0
+                              ? totalTime.toStringAsFixed(0) + ' min'
+                              : 'Unknown',
+                          style: TextStyle(fontSize: 12)),
                     ],
                   ),
                 ],

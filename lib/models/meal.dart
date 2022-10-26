@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../fetcher.dart';
+import '../fetcher/apiFetcher.dart';
 import 'dart:developer';
 import '../widgets/meal_item.dart';
 
@@ -9,8 +9,9 @@ class Meal {
   String source;
   List<String> ingredientLines;
   List<String> healthLabels;
-  double calories;
   String uri;
+  double calories;
+  double totalTime;
 
   Meal({
     this.label,
@@ -20,6 +21,7 @@ class Meal {
     this.ingredientLines,
     this.calories,
     this.uri,
+    this.totalTime,
   });
 
   Meal.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,7 @@ class Meal {
       healthLabels = new List<String>.from(json['healthLabels']);
       ingredientLines = new List<String>.from(json['ingredientLines']);
       calories = json['calories'];
+      totalTime = json['totalTime'];
       uri = json['uri'];
     } catch (e) {
       //do nothing

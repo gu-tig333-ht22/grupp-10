@@ -17,14 +17,6 @@ class FavoritesScreen extends StatelessWidget {
     } else {
       return ListView.builder(
         itemBuilder: (ctx, index) {
-          // return MealItem(
-          //   id: favoriteMeals[index].id,
-          //   title: favoriteMeals[index].title,
-          //   image: favoriteMeals[index].image,
-          //   duration: favoriteMeals[index].duration,
-          //   affordability: favoriteMeals[index].affordability,
-          //   complexity: favoriteMeals[index].complexity,
-          // );
           return MealItem();
         },
         itemCount: favoriteMeals.length,

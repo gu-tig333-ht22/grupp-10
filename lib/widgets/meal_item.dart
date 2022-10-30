@@ -29,13 +29,10 @@ class MealItem extends StatelessWidget {
       source = json['source'];
       uri = json['uri'];
       image = json['image'];
-      // healthLabels = new List<String>.from(json['healthLabels']);
       ingredientLines = new List<String>.from(json['ingredientLines']);
       calories = json['calories'];
       totalTime = json['totalTime'];
-    } catch (e) {
-      //do nothing
-    }
+    } catch (e) {}
   }
 
   void selectMeal(BuildContext ctx, uri) async {
@@ -45,9 +42,7 @@ class MealItem extends StatelessWidget {
     await Navigator.of(ctx)
         .pushNamed(MealDetailScreen.routeName)
         .then((result) {
-      if (result != null) {
-        // removeItem(result);
-      }
+      if (result != null) {}
     });
   }
 

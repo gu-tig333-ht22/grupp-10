@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../widgets/meal_item.dart';
-import '../dummy_data.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
@@ -36,7 +35,6 @@ class MealDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // DUMMY_MEALS.firstWhere((meal) => meal.label == mealLabel);
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedRecipe.label),

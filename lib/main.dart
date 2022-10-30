@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import './dummy_data.dart';
 import './screens/tabs_screen.dart';
 import './screens/meal_detail_screen.dart';
 import './screens/category_meals_screen.dart';
@@ -37,6 +36,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -56,8 +56,7 @@ class _MyAppState extends State<MyApp> {
               fontWeight: FontWeight.bold,
             )),
       ),
-      // home: CategoriesScreen(),
-      initialRoute: '/', // default is '/'
+      initialRoute: '/',
       routes: {
         '/': (ctx) => TabsScreen(_favoriteMeals),
         CategoryMealsScreen.routeName: (ctx) => Consumer<MyState>(
@@ -68,10 +67,6 @@ class _MyAppState extends State<MyApp> {
                 MealDetailScreen(state.selectedRecipe)),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, null),
       },
-      /*
-      onGenerateRoute: (settings) {
-        print(settings.arguments);
-            },*/
       onUnknownRoute: (settings) {
         return MaterialPageRoute(
           builder: (ctx) => CategoriesScreen(),

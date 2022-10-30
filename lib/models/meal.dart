@@ -83,8 +83,4 @@ class MyState extends ChangeNotifier {
     debugPrint(_selectedRecipe.toString());
     notifyListeners();
   }
-
-  // void updateFilter(String newValue) {
-  //   notifyListeners();
-  // }
 }

@@ -31,8 +31,6 @@ class _MyAppState extends State<MyApp> {
     'vegetarian': false,
   };
 
-  List<Meal> _favoriteMeals = [];
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -58,13 +56,13 @@ class _MyAppState extends State<MyApp> {
       ),
       initialRoute: '/',
       routes: {
-        '/': (ctx) => TabsScreen(_favoriteMeals),
+        '/': (ctx) => TabsScreen(),
         CategoryMealsScreen.routeName: (ctx) => Consumer<MyState>(
             builder: (ctx, state, child) => CategoryMealsScreen(
                 state.list, state.filter, state.cuisineType)),
         MealDetailScreen.routeName: (ctx) => Consumer<MyState>(
             builder: (ctx, state, child) =>
-                MealDetailScreen(state.selectedRecipe)),
+                MealDetailScreen(state.selectedRecipe, state.favourites)),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, null),
       },
       onUnknownRoute: (settings) {

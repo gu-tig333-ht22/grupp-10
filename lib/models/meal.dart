@@ -83,4 +83,30 @@ class MyState extends ChangeNotifier {
     debugPrint(_selectedRecipe.toString());
     notifyListeners();
   }
+
+  List<MealItem> _favourites = [];
+  List<MealItem> get favourites => _favourites;
+  void addFavourite(recipe) async {
+    _favourites.insert(0, recipe);
+    debugPrint(_favourites.toString());
+    notifyListeners();
+  }
+
+  void removeFavourite(recipe) async {
+    for (var i = 0; i < _favourites.length; i++) {
+      if (_favourites[i].uri == recipe.uri) {
+        _favourites.removeAt(i);
+      }
+    }
+    notifyListeners();
+  }
+
+  bool isFavourite(recipe) {
+    for (var favourite in _favourites) {
+      if (favourite.uri == recipe.uri) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

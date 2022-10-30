@@ -41,6 +41,9 @@ class MealDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var state = Provider.of<MyState>(context, listen: false);
 
+    // Get if this recipe is a favourite
+    var isFavourite = state.isFavourite(selectedRecipe);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(selectedRecipe.label),
@@ -76,12 +79,12 @@ class MealDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
-          favourites.contains(selectedRecipe) ? Icons.star : Icons.star_border,
+          isFavourite == true ? Icons.star : Icons.star_border,
         ),
         onPressed: () => {
-          !favourites.contains(selectedRecipe)
-              ? state.addFavourite(selectedRecipe)
-              : state.removeFavourite(selectedRecipe)
+          isFavourite
+              ? state.removeFavourite(selectedRecipe)
+              : state.addFavourite(selectedRecipe)
         },
       ),
     );

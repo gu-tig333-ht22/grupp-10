@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/meal_item.dart';
 import 'package:provider/provider.dart';
 import '../models/meal.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MealDetailScreen extends StatelessWidget {
   static const routeName = '/meal-detail';
@@ -73,6 +74,28 @@ class MealDetailScreen extends StatelessWidget {
                 itemCount: selectedRecipe.ingredientLines.length,
               ),
             ),
+            Container(
+                width: 240,
+                decoration: new BoxDecoration(
+                    borderRadius: new BorderRadius.circular(6.0),
+                    color: Color.fromARGB(255, 255, 217, 0),
+                    border: Border.all(color: Color.fromARGB(255, 50, 50, 51))),
+                child: TextButton(
+                  onPressed: () async {
+                    if (await canLaunch(selectedRecipe.uri)) {
+                      await launch(selectedRecipe.uri);
+                    } else {
+                      throw 'Could not launch url';
+                    }
+                  },
+                  child: const Text(
+                    'View Recipe',
+                    style: TextStyle(
+                        fontSize: 24,
+                        color: Color.fromARGB(255, 37, 37, 37),
+                        fontWeight: FontWeight.w400),
+                  ),
+                )),
           ],
         ),
       ),

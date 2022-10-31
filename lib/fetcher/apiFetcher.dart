@@ -14,8 +14,7 @@ class Fetcher {
         'https://api.edamam.com/api/recipes/v2?type=public&app_id=${dotenv.env['APP_ID']}&app_key=${dotenv.env['APP_KEY']}&imageSize=THUMBNAIL&field=label&field=image&field=source&field=healthLabels&field=ingredientLines&field=calories&field=uri&field=totalTime';
     http.Response response = await http.get(Uri.parse(
         '${base_url}&q=${query}&cuisineType=${cuisineType}&health=${filterString}'));
-    print(
-        '${base_url}&q=${query}&cuisineType=${cuisineType}&health=${filterString}');
+
     if (response.statusCode == 200) {
       var _jsonData = response.body;
       final List parsedList = json.decode(_jsonData)['hits'];

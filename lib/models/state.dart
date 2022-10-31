@@ -12,7 +12,7 @@ class appState extends ChangeNotifier {
   String get query => _query;
   String _cuisineType = 'Asian';
   String get cuisineType => _cuisineType;
-  List<String> _filter = ['vegetarian', 'vegan'];
+  List<String> _filter = ['vegetarian'];
   List<String> get filter => _filter;
 
   void searchMeals() async {
@@ -33,6 +33,22 @@ class appState extends ChangeNotifier {
     searchMeals();
   }
 
+  void addFilter(filterOpt) async {
+    _filter.insert(0, filterOpt);
+    notifyListeners();
+    await searchMeals();
+  }
+
+  void removeFilter(filterOpt) async {
+    for (var i = 0; i < _filter.length; i++) {
+      if (_filter[i] == filterOpt) {
+        _filter.removeAt(i);
+      }
+    }
+    notifyListeners();
+    await searchMeals();
+  }
+
   MealItem _selectedRecipe = null;
   MealItem get selectedRecipe => _selectedRecipe;
 
@@ -43,7 +59,6 @@ class appState extends ChangeNotifier {
 
     var _fetchedMeal = await Fetcher.fetchRecipe(id);
     _selectedRecipe = _fetchedMeal;
-    debugPrint(_selectedRecipe.toString());
     notifyListeners();
   }
 
@@ -51,7 +66,6 @@ class appState extends ChangeNotifier {
   List<MealItem> get favourites => _favourites;
   void addFavourite(recipe) async {
     _favourites.insert(0, recipe);
-    debugPrint(_favourites.toString());
     notifyListeners();
   }
 

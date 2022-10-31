@@ -1,47 +1,28 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/main_drawer.dart';
+import 'package:provider/provider.dart';
+import '../models/state.dart';
 
-class FiltersScreen extends StatefulWidget {
+class FiltersScreen extends StatelessWidget {
   static const routeName = '/filters';
-
-  final Function saveFilters;
-  final Map<String, bool> currentFilters;
-
-  FiltersScreen(this.currentFilters, this.saveFilters);
-
-  @override
-  _FiltersScreenState createState() => _FiltersScreenState();
-}
-
-class _FiltersScreenState extends State<FiltersScreen> {
-  bool _glutenFree = false;
-  bool _vegetarian = false;
-  bool _vegan = false;
-  bool _lactoseFree = false;
-
-  @override
-  initState() {
-    _glutenFree = widget.currentFilters['gluten'];
-    _lactoseFree = widget.currentFilters['lactose'];
-    _vegetarian = widget.currentFilters['vegetarian'];
-    _vegan = widget.currentFilters['vegan'];
-    super.initState();
-  }
-
   Widget _buildSwitchListTile(
+    BuildContext context,
     String title,
     String description,
-    bool currentValue,
-    Function updateValue,
+    String valueName,
   ) {
+    var state = Provider.of<appState>(context, listen: true);
     return SwitchListTile(
       title: Text(title),
-      value: currentValue,
+      value: state.filter.contains(valueName) ? true : false,
       subtitle: Text(
         description,
       ),
-      onChanged: updateValue,
+      onChanged: (value) {
+        state.filter.contains(valueName)
+            ? state.removeFilter(valueName)
+            : state.addFilter(valueName);
+      },
     );
   }
 
@@ -50,20 +31,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Your Filters'),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {
-              final selectedFilters = {
-                'gluten': _glutenFree,
-                'lactose': _lactoseFree,
-                'vegan': _vegan,
-                'vegetarian': _vegetarian,
-              };
-              widget.saveFilters(selectedFilters);
-            },
-          )
-        ],
+        actions: <Widget>[],
       ),
       drawer: MainDrawer(),
       body: Column(
@@ -78,53 +46,17 @@ class _FiltersScreenState extends State<FiltersScreen> {
           Expanded(
             child: ListView(
               children: <Widget>[
+                _buildSwitchListTile(context, 'Gluten-free',
+                    'Only include gluten-free meals.', 'gluten-free'),
+                _buildSwitchListTile(context, 'Diary-free',
+                    'Only include dairy-free meals.', 'dairy-free'),
+                _buildSwitchListTile(context, 'Vegetarian',
+                    'Only include vegetarian meals.', 'vegetarian'),
                 _buildSwitchListTile(
-                  'Gluten-free',
-                  'Only include gluten-free meals.',
-                  _glutenFree,
-                  (newValue) {
-                    setState(
-                      () {
-                        _glutenFree = newValue;
-                      },
-                    );
-                  },
-                ),
-                _buildSwitchListTile(
-                  'Lactose-free',
-                  'Only include lactose-free meals.',
-                  _lactoseFree,
-                  (newValue) {
-                    setState(
-                      () {
-                        _lactoseFree = newValue;
-                      },
-                    );
-                  },
-                ),
-                _buildSwitchListTile(
-                  'Vegetarian',
-                  'Only include vegetarian meals.',
-                  _vegetarian,
-                  (newValue) {
-                    setState(
-                      () {
-                        _vegetarian = newValue;
-                      },
-                    );
-                  },
-                ),
-                _buildSwitchListTile(
+                  context,
                   'Vegan',
                   'Only include vegan meals.',
-                  _vegan,
-                  (newValue) {
-                    setState(
-                      () {
-                        _vegan = newValue;
-                      },
-                    );
-                  },
+                  'vegan',
                 )
               ],
             ),

@@ -123,8 +123,11 @@ class MealItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(source != null ? source : 'Unknown',
-                          style: TextStyle(fontSize: 12)),
+                      SizedBox(
+                        width: 150,
+                        child: Text(source != null ? source : 'Unknown',
+                            style: TextStyle(fontSize: 12)),
+                      ),
                     ],
                   ),
                   Row(

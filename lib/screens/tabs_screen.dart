@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../widgets/main_drawer.dart';
 import './favorites_screen.dart';
 import './categories_screen.dart';
-import '../models/meal.dart';
+import '../models/state.dart';
 import 'package:provider/provider.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -24,7 +23,7 @@ class _TabsScreenState extends State<TabsScreen> {
       },
       {
         'page': FavoritesScreen(
-            Provider.of<MyState>(context, listen: false).favourites),
+            Provider.of<appState>(context, listen: false).favourites),
         'title': 'Your Favourites',
       },
     ];

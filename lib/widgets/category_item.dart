@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import '../models/category.dart';
 import '../screens/category_meals_screen.dart';
 import 'package:provider/provider.dart';
-import '../models/meal.dart';
+import '../models/state.dart';
 
 class CategoryItem extends StatelessWidget {
   final String id;
@@ -12,7 +11,7 @@ class CategoryItem extends StatelessWidget {
   CategoryItem(this.id, this.title, this.image);
 
   Future<void> selectCategory(BuildContext ctx) async {
-    var state = await Provider.of<MyState>(ctx, listen: false);
+    var state = await Provider.of<appState>(ctx, listen: false);
     await state.updateCuisineType(title);
 
     await Navigator.of(ctx).pushNamed(

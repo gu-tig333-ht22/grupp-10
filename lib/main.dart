@@ -5,11 +5,13 @@ import './screens/meal_detail_screen.dart';
 import './screens/category_meals_screen.dart';
 import './screens/filters_screen.dart';
 import './screens/categories_screen.dart';
-import './models/meal.dart';
+import './models/state.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() {
-  var state = MyState();
+  dotenv.load(fileName: ".env");
+  var state = appState();
   runApp(
     ChangeNotifierProvider(
       create: (context) => state,
@@ -35,7 +37,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'DeliMeals',
+      title: 'Recipe App',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
         accentColor: Colors.amber,
@@ -57,10 +59,10 @@ class _MyAppState extends State<MyApp> {
       initialRoute: '/',
       routes: {
         '/': (ctx) => TabsScreen(),
-        CategoryMealsScreen.routeName: (ctx) => Consumer<MyState>(
+        CategoryMealsScreen.routeName: (ctx) => Consumer<appState>(
             builder: (ctx, state, child) => CategoryMealsScreen(
                 state.list, state.filter, state.cuisineType)),
-        MealDetailScreen.routeName: (ctx) => Consumer<MyState>(
+        MealDetailScreen.routeName: (ctx) => Consumer<appState>(
             builder: (ctx, state, child) =>
                 MealDetailScreen(state.selectedRecipe, state.favourites)),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, null),

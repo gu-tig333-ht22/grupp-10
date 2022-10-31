@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../screens/meal_detail_screen.dart';
-import '../models/meal.dart';
+import '../models/state.dart';
 import 'package:provider/provider.dart';
 
 class MealItem extends StatelessWidget {
@@ -36,7 +36,7 @@ class MealItem extends StatelessWidget {
   }
 
   void selectMeal(BuildContext ctx, uri) async {
-    var state = await Provider.of<MyState>(ctx, listen: false);
+    var state = await Provider.of<appState>(ctx, listen: false);
     await state.setSelectedRecipe(uri);
 
     await Navigator.of(ctx)

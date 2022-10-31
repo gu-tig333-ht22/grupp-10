@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/meal.dart';
 import '../widgets/meal_item.dart';
-import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class Fetcher {
   static Future searchRecipe(query, cuisineType, filters) async {
@@ -10,7 +10,7 @@ class Fetcher {
     var filterString = filters.join('&health=');
 
     var base_url =
-        'https://api.edamam.com/api/recipes/v2?type=public&app_id=607e9ef0&app_key=36dd52ad40a313ff492876bb59038867%09&imageSize=THUMBNAIL&field=label&field=image&field=source&field=healthLabels&field=ingredientLines&field=calories&field=uri&field=totalTime';
+        'https://api.edamam.com/api/recipes/v2?type=public&app_id=${dotenv.env['APP_ID']}&app_key=${dotenv.env['APP_KEY']}&imageSize=THUMBNAIL&field=label&field=image&field=source&field=healthLabels&field=ingredientLines&field=calories&field=uri&field=totalTime';
     http.Response response = await http.get(Uri.parse(
         '${base_url}&q=${query}&cuisineType=${cuisineType}&health=${filterString}'));
     if (response.statusCode == 200) {
@@ -27,7 +27,7 @@ class Fetcher {
 
   static Future fetchRecipe(id) async {
     var recipe_url =
-        'https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=607e9ef0&app_key=36dd52ad40a313ff492876bb59038867%09&field=uri&field=label&field=image&field=images&field=source&field=url&field=healthLabels&field=ingredientLines&field=calories&field=cuisineType&field=totalTime';
+        'https://api.edamam.com/api/recipes/v2/${id}?type=public&app_id=${dotenv.env['APP_ID']}&app_key=${dotenv.env['APP_KEY']}&field=uri&field=label&field=image&field=images&field=source&field=url&field=healthLabels&field=ingredientLines&field=calories&field=cuisineType&field=totalTime';
     http.Response response = await http.get(Uri.parse(recipe_url));
     if (response.statusCode == 200) {
       var _jsonData = response.body;

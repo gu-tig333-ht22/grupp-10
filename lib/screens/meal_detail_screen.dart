@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../widgets/meal_item.dart';
 import 'package:provider/provider.dart';
 import '../models/meal.dart';
+import '../models/state.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MealDetailScreen extends StatelessWidget {
@@ -39,7 +40,7 @@ class MealDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var state = Provider.of<MyState>(context, listen: false);
+    var state = Provider.of<appState>(context, listen: false);
 
     // Get if this recipe is a favourite
     var isFavourite = state.isFavourite(selectedRecipe);
